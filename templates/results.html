@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Analysis Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container mt-5 p-4 bg-white rounded shadow">
+        <h1 class="text-center mb-4">🔍 Review Analysis for <em>{{ product_title }}</em></h1>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h3>📊 Summary</h3>
+                <p><strong>Average Rating:</strong> {{ "%.2f" % average_rating }} / 5</p>
+                <p><strong>Total Reviews:</strong> {{ review_count }}</p>
+                <p><strong>Sentiment Breakdown:</strong></p>
+                <ul>
+                    <li>😊 Positive: {{ sentiment_counts.Positive }}</li>
+                    <li>😞 Negative: {{ sentiment_counts.Negative }}</li>
+                    <li>😐 Neutral: {{ sentiment_counts.Neutral }}</li>
+                </ul>
+                <img src="{{ url_for('static', filename=chart_path) }}" alt="Rating Distribution">
+            </div>
+            <div class="col-md-6">
+                <h3>🗣️ Reviews</h3>
+                <div class="list-group">
+                    {% for review in sentiments %}
+                        <div class="list-group-item">
+                            <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
+                            <p><strong>Sentiment:</strong> 
+                                <span class="badge {{ 'bg-success' if review.sentiment == 'Positive' else 'bg-danger' if review.sentiment == 'Negative' else 'bg-secondary' }}">
+                                    {{ review.sentiment }}
+                                </span>
+                            </p>
+                            <p>{{ review.snippet }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
