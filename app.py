@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = "super_secret_key"
 
 # SerpApi configuration
-API_KEY = "ec7c390e5cef67de410b5088d6dd530586115cba828a09974fd8aec4af21f208"
+API_KEY = "your_api_key"
 SHOPPING_API_URL = "https://serpapi.com/search.json"
 PRODUCT_API_URL = "https://serpapi.com/search.json"
 
